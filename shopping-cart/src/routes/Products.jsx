@@ -1,3 +1,7 @@
 export function Products() {
-  return <p>Products</p>;
+  return (
+    <>
+      <div className="products-list"></div>
+    </>
+  );
 }

@@ -3,7 +3,7 @@ export function App() {
   return (
     <>
       <nav>
-        <h1>Bubble Tea Shop</h1>
+        <h1>Boba Bear Milk Tea</h1>
         <div className="nav-buttons">
           <ul>
             <NavLink to="/" end>
