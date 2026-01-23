@@ -10,7 +10,7 @@ export function App() {
               Home
             </NavLink>
             <NavLink to="contact">Contact</NavLink>
-            <NavLink to="products">Products</NavLink>
+            <NavLink to="products/Milk Tea">Products</NavLink>
             <NavLink to="cart">Cart</NavLink>
           </ul>
         </div>

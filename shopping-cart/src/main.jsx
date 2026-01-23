@@ -8,7 +8,7 @@ import "./index.css";
 import { App } from "./App.jsx";
 import { Home } from "./routes/Home.jsx";
 import { Shop } from "./routes/Shop.jsx";
-import { Products } from "./routes/Products.jsx";
+import { Products, ProductsLoader } from "./routes/Products.jsx";
 import { Contact } from "./routes/Contact.jsx";
 
 const router = createBrowserRouter([
@@ -20,7 +20,11 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Home /> },
           { path: "cart", element: <Shop /> },
-          { path: "products", element: <Products /> },
+          {
+            path: "products/:category",
+            element: <Products />,
+            loader: ProductsLoader,
+          },
           { path: "contact", element: <Contact /> },
         ],
       },

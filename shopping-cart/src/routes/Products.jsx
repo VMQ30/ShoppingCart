@@ -1,4 +1,21 @@
 import { setMenuData } from "./data/MenuData";
+import { NavLink, useLoaderData } from "react-router-dom";
+
+export function ProductsLoader({ params }) {
+  const { category } = params;
+  const finalCategory = decodeURIComponent(category);
+  const { menu } = setMenuData();
+
+  const categoryData = menu.find((item) => item.category === finalCategory);
+
+  if (!categoryData) {
+    throw new Response("", {
+      status: 404,
+      statusText: "Not Found",
+    });
+  }
+  return { categoryData };
+}
 
 export function Products() {
   return (
@@ -12,12 +29,22 @@ export function Products() {
 
 function GetData() {
   const { menu, addons } = setMenuData();
+  const { categoryData } = useLoaderData();
+  const drinks = categoryData.items;
   console.log(menu);
   return (
     <>
-      {menu.map((drinks, index) => (
-        <RenderCategory drinks={drinks} key={index} />
-      ))}
+      <div className="drinks-category">
+        {menu.map((drinks, index) => (
+          <RenderCategory drinks={drinks} key={index} />
+        ))}
+      </div>
+
+      <div className="drinks-list">
+        {drinks.map((drink) => (
+          <RenderDrinks drink={drink} />
+        ))}
+      </div>
     </>
   );
 }
@@ -25,10 +52,9 @@ function GetData() {
 function RenderCategory({ drinks }) {
   return (
     <div className="drinks-category">
-      <h3>{drinks.category}</h3>
-      {drinks.items.map((drink) => (
-        <RenderDrinks drink={drink} key={drink.id} />
-      ))}
+      <h3 key={drinks.category}>
+        <NavLink to={`/products/${drinks.category}`}>{drinks.category}</NavLink>
+      </h3>
     </div>
   );
 }
