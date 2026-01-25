@@ -108,107 +108,113 @@ function Modal({ drink, addons }) {
   const [selectedSize, setSelectedSize] = useState(null);
 
   return (
-    <div
-      className={styles.modal}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-    >
+    <div className={styles["modal-container"]}>
       <div
-        className={styles["modal-photo"]}
-        role="img"
-        aria-label={`Photo of ${drink.name}`}
-      ></div>
+        className={styles.modal}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        <div
+          className={styles["modal-photo"]}
+          role="img"
+          aria-label={`Photo of ${drink.name}`}
+        ></div>
 
-      <div className={styles["drink-details"]}>
-        <h3 id="modal-title">{drink.name}</h3>
-        <p>{drink.description}</p>
-      </div>
-
-      <div className={styles["drink-option"]}>
-        <fieldset className={styles["size-selector-field"]}>
-          <legend>
-            <h4 id="size-label">* Size: </h4>
-          </legend>
-
-          <div
-            className={styles["options-wrapper"]}
-            role="radiogroup"
-            aria-labelledby="size-label"
-          >
-            {drink.size.map((size) => {
-              const drinkSize = Object.keys(size)[0];
-              const drinkPrice = Object.values(size)[0];
-              const drinkId = `${drink.id}-${drinkSize}`;
-
-              return (
-                <div className={styles["option-size"]} key={drinkId}>
-                  <input
-                    id={drinkId}
-                    type="radio"
-                    name="drinksSize"
-                    value={drinkSize}
-                    onChange={() => setSelectedSize(size)}
-                  />
-                  <label htmlFor={drinkId}>{drinkSize}</label>
-                  <h6>{`₱${drinkPrice}.00`}</h6>
-                </div>
-              );
-            })}
+        <div className={styles["modal-details-wrapper"]}>
+          <div className={styles["drink-details"]}>
+            <h3 id="modal-title">{drink.name}</h3>
+            <p>{drink.description}</p>
           </div>
-        </fieldset>
-      </div>
 
-      <div className={styles["drink-add-ons"]}>
-        <fieldset className={styles["add-ons-selector-field"]}>
-          <legend>
-            <h4 id="add-ons-label">Add-Ons: </h4>
-          </legend>
+          <div className={styles["drink-option"]}>
+            <fieldset className={styles["size-selector-field"]}>
+              <legend>
+                <h4 id="size-label">* Size: </h4>
+              </legend>
 
-          <div
-            className={styles["options-wrapper"]}
-            aria-labelledby="add-ons-label"
-          >
-            {addons.map((addon) => (
-              <div className={styles["option-size"]} key={addon.id}>
-                <input
-                  id={addon.id}
-                  type="checkbox"
-                  name="addons"
-                  value={addon.name}
-                />
-                <label htmlFor={addon.id}>{addon.name}</label>
-                <h6>{`₱${addon.price}.00`}</h6>
+              <div
+                className={styles["options-wrapper"]}
+                role="radiogroup"
+                aria-labelledby="size-label"
+              >
+                {drink.size.map((size) => {
+                  const drinkSize = Object.keys(size)[0];
+                  const drinkPrice = Object.values(size)[0];
+                  const drinkId = `${drink.id}-${drinkSize}`;
+
+                  return (
+                    <div className={styles["option-size"]} key={drinkId}>
+                      <input
+                        id={drinkId}
+                        type="radio"
+                        name="drinksSize"
+                        value={drinkSize}
+                        onChange={() => setSelectedSize(size)}
+                      />
+                      <label htmlFor={drinkId}>{drinkSize}</label>
+                      <h6>{`₱${drinkPrice}.00`}</h6>
+                    </div>
+                  );
+                })}
               </div>
-            ))}
+            </fieldset>
           </div>
-        </fieldset>
-      </div>
 
-      <div className={styles["drink-request"]}>
-        <h4>Special Request</h4>
-        <textarea />
-      </div>
+          <div className={styles["drink-add-ons"]}>
+            <fieldset className={styles["add-ons-selector-field"]}>
+              <legend>
+                <h4 id="add-ons-label">Add-Ons: </h4>
+              </legend>
 
-      <div className={styles["add-order"]}>
-        <div className={styles["num-of-order-wrapper"]}>
-          <button
-            className={styles.decrease}
-            onClick={() => setNumOfOrder((prev) => (prev > 1 ? prev - 1 : 1))}
-          >
-            -
-          </button>
-          <div className={styles["num-of-order"]}>{numOfOrder}</div>
-          <button
-            className={styles.increase}
-            onClick={() => setNumOfOrder((prev) => prev + 1)}
-          >
-            +
-          </button>
+              <div
+                className={styles["options-wrapper"]}
+                aria-labelledby="add-ons-label"
+              >
+                {addons.map((addon) => (
+                  <div className={styles["option-size"]} key={addon.id}>
+                    <input
+                      id={addon.id}
+                      type="checkbox"
+                      name="addons"
+                      value={addon.name}
+                    />
+                    <label htmlFor={addon.id}>{addon.name}</label>
+                    <h6>{`₱${addon.price}.00`}</h6>
+                  </div>
+                ))}
+              </div>
+            </fieldset>
+          </div>
+
+          <div className={styles["drink-request"]}>
+            <h4>Special Request</h4>
+            <textarea />
+          </div>
+
+          <div className={styles["add-order"]}>
+            <div className={styles["num-of-order-wrapper"]}>
+              <button
+                className={styles.decrease}
+                onClick={() =>
+                  setNumOfOrder((prev) => (prev > 1 ? prev - 1 : 1))
+                }
+              >
+                -
+              </button>
+              <div className={styles["num-of-order"]}>{numOfOrder}</div>
+              <button
+                className={styles.increase}
+                onClick={() => setNumOfOrder((prev) => prev + 1)}
+              >
+                +
+              </button>
+            </div>
+            <button className={styles["add-cart"]} disabled={!selectedSize}>
+              Add to Cart
+            </button>
+          </div>
         </div>
-        <button className={styles["add-cart"]} disabled={!selectedSize}>
-          Add to Cart
-        </button>
       </div>
     </div>
   );
