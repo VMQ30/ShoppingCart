@@ -58,11 +58,11 @@ function GetData() {
 
 function RenderCategory({ drinks }) {
   return (
-    <>
+    <div className={styles["category-wrapper"]}>
       <h3 key={drinks.category}>
         <NavLink to={`/products/${drinks.category}`}>{drinks.category}</NavLink>
       </h3>
-    </>
+    </div>
   );
 }
 
@@ -89,11 +89,11 @@ function RenderDrinks({ drink, addons }) {
             <p>{drink.description}</p>
           </div>
           <div className={styles["drinks-price"]}>
-            <h6>
-              {drink.size.map(
-                (size) => `${Object.keys(size)} : ₱${Object.values(size)} `,
-              )}
-            </h6>
+            {drink.size.map((size, index) => (
+              <h6 key={index}>
+                {Object.keys(size)} : {Object.values(size)}
+              </h6>
+            ))}
           </div>
         </div>
       </div>
@@ -123,14 +123,16 @@ function Modal({ drink, addons }) {
 
         <div className={styles["modal-details-wrapper"]}>
           <div className={styles["drink-details"]}>
-            <h3 id="modal-title">{drink.name}</h3>
+            <h3 id="modal-title" className={styles["modal-title"]}>
+              {drink.name}
+            </h3>
             <p>{drink.description}</p>
           </div>
 
           <div className={styles["drink-option"]}>
             <fieldset className={styles["size-selector-field"]}>
               <legend>
-                <h4 id="size-label">* Size: </h4>
+                <h4 id="size-label">Size: </h4>
               </legend>
 
               <div
@@ -145,14 +147,16 @@ function Modal({ drink, addons }) {
 
                   return (
                     <div className={styles["option-size"]} key={drinkId}>
-                      <input
-                        id={drinkId}
-                        type="radio"
-                        name="drinksSize"
-                        value={drinkSize}
-                        onChange={() => setSelectedSize(size)}
-                      />
-                      <label htmlFor={drinkId}>{drinkSize}</label>
+                      <div>
+                        <input
+                          id={drinkId}
+                          type="radio"
+                          name="drinksSize"
+                          value={drinkSize}
+                          onChange={() => setSelectedSize(size)}
+                        />
+                        <label htmlFor={drinkId}>{drinkSize}</label>
+                      </div>
                       <h6>{`₱${drinkPrice}.00`}</h6>
                     </div>
                   );
@@ -173,13 +177,15 @@ function Modal({ drink, addons }) {
               >
                 {addons.map((addon) => (
                   <div className={styles["option-size"]} key={addon.id}>
-                    <input
-                      id={addon.id}
-                      type="checkbox"
-                      name="addons"
-                      value={addon.name}
-                    />
-                    <label htmlFor={addon.id}>{addon.name}</label>
+                    <div>
+                      <input
+                        id={addon.id}
+                        type="checkbox"
+                        name="addons"
+                        value={addon.name}
+                      />
+                      <label htmlFor={addon.id}>{addon.name}</label>
+                    </div>
                     <h6>{`₱${addon.price}.00`}</h6>
                   </div>
                 ))}
@@ -200,7 +206,7 @@ function Modal({ drink, addons }) {
                   setNumOfOrder((prev) => (prev > 1 ? prev - 1 : 1))
                 }
               >
-                -
+                −
               </button>
               <div className={styles["num-of-order"]}>{numOfOrder}</div>
               <button

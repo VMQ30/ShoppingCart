@@ -3,6 +3,7 @@
   padding: 40px;
   padding-top: 0;
   flex: 0;
+  gap: 20px;
   h2 {
     font-size: 2.5rem;
   }
@@ -13,6 +14,11 @@
   flex-direction: column;
   flex-shrink: 0;
   width: 20vw;
+  margin-top: 5rem;
+}
+
+.category-wrapper {
+  padding: 15px 10px;
 }
 
 .drinks-list {
@@ -23,7 +29,7 @@
 }
 
 .drinks-card {
-  background-color: #efe6fb;
+  background-color: #f7b7b7;
   padding: 20px;
   display: flex;
   border-radius: 10px;
@@ -50,10 +56,9 @@
 }
 
 .best-seller {
-  background-color: #a3b899;
+  background-color: #f9ddda;
   padding: 5px 15px;
   border-radius: 20px;
-  color: white;
   p {
     margin: 0;
     font-weight: 600;
@@ -62,6 +67,8 @@
 
 .drinks-price {
   font-size: 1.5rem;
+  display: flex;
+  gap: 30px;
 }
 
 .modal-container {
@@ -78,19 +85,27 @@
 }
 
 .modal {
-  width: 60vw;
+  width: 40vw;
   height: 80vh;
   overflow-y: auto;
-  background-color: #dde6d5;
+  background-color: #faf2f1;
   scrollbar-width: thin;
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
+.modal-title {
+  font-size: 2rem;
+}
+
+p {
+  margin-top: 0;
+}
+
 .modal-photo {
   height: 70%;
-  background-color: #a3b899;
+  background-color: #fcd3ce;
 }
 
 .modal-details-wrapper {
@@ -98,23 +113,30 @@
   padding-top: 0;
 }
 
-.size-selector-field {
+.size-selector-field,
+.add-ons-selector-field {
   margin: 0;
   display: flex;
   flex-direction: column;
 
   h6 {
     font-size: 1rem;
-    margin-left: 10px;
+    margin-left: 20px;
   }
 }
 
 fieldset {
   padding: 10px;
+  padding-left: 0;
   margin: 0;
+  border: none;
+
+  label {
+    margin-left: 10px;
+  }
 }
 
-.size-selector-field .options-wrapper {
+.options-wrapper {
   width: 100%;
   input {
     margin: 0;
@@ -123,4 +145,42 @@ fieldset {
     display: flex;
     align-items: center;
   }
+}
+
+.option-size {
+  padding: 15px 10px;
+  border: 2px solid #f2c0b9;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-order {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.num-of-order-wrapper {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #f2c0b9;
+
+  button {
+    background-color: transparent;
+    font-size: 1.5rem;
+  }
+}
+
+.add-cart {
+  width: 60%;
+  background-color: #f7b7b7;
+}
+textarea {
+  width: 100%;
+  height: 100px;
+  resize: none;
 }
