@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 export function App() {
+  const [orders, setOrders] = useState([]);
   return (
     <>
       <nav>
@@ -17,7 +19,7 @@ export function App() {
       </nav>
 
       <main>
-        <Outlet />
+        <Outlet context={[orders, setOrders]} />
       </main>
 
       <footer></footer>

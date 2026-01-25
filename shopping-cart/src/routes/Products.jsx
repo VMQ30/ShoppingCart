@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { setMenuData } from "./data/MenuData";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useOutletContext } from "react-router-dom";
 
 import styles from "./styles/Products.module.css";
 
@@ -104,9 +104,15 @@ function RenderDrinks({ drink, addons }) {
 }
 
 function Modal({ drink, addons }) {
+  const [orders, setOrders] = useOutletContext();
+
   const [numOfOrder, setNumOfOrder] = useState(1);
   const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedAddons, setSelectedAddons] = useState([]);
 
+  console.log(selectedSize);
+  console.log(selectedAddons);
+  console.log(orders);
   return (
     <div className={styles["modal-container"]}>
       <div
@@ -183,6 +189,7 @@ function Modal({ drink, addons }) {
                         type="checkbox"
                         name="addons"
                         value={addon.name}
+                        onChange={() => handleToggle(addon, setSelectedAddons)}
                       />
                       <label htmlFor={addon.id}>{addon.name}</label>
                     </div>
@@ -216,7 +223,20 @@ function Modal({ drink, addons }) {
                 +
               </button>
             </div>
-            <button className={styles["add-cart"]} disabled={!selectedSize}>
+            <button
+              className={styles["add-cart"]}
+              disabled={!selectedSize}
+              onClick={() =>
+                AddOrder(
+                  drink,
+                  numOfOrder,
+                  selectedAddons,
+                  selectedSize,
+                  orders,
+                  setOrders,
+                )
+              }
+            >
               Add to Cart
             </button>
           </div>
@@ -224,4 +244,32 @@ function Modal({ drink, addons }) {
       </div>
     </div>
   );
+}
+
+function handleToggle(addon, setSelectedAddons) {
+  setSelectedAddons((prev) => {
+    const isSelected = prev.find((item) => item.id === addon.id);
+    if (isSelected) return prev.filter((item) => item.id !== addon.id);
+    else return [...prev, addon];
+  });
+}
+
+function AddOrder(
+  drink,
+  numOfOrder,
+  selectedAddons,
+  selectedSize,
+  orders,
+  setOrders,
+) {
+  let newOrder = [
+    ...orders,
+    {
+      name: drink.name,
+      size: selectedSize,
+      numOfOrder: numOfOrder,
+      selectedAddons: selectedAddons,
+    },
+  ];
+  setOrders(newOrder);
 }
