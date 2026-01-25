@@ -1,0 +1,65 @@
+.drinks-container {
+  display: flex;
+  padding: 40px;
+  padding-top: 0;
+  flex: 0;
+  h2 {
+    font-size: 2.5rem;
+  }
+}
+
+.drinks-category {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 20vw;
+}
+
+.drinks-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.drinks-card {
+  background-color: #efe6fb;
+  padding: 20px;
+  display: flex;
+  border-radius: 10px;
+}
+
+.drinks-image {
+  width: 100%;
+  height: 100px;
+  background-color: transparent;
+  flex: 1;
+}
+
+.drinks-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  h4 {
+    width: 50%;
+    font-size: 1.7rem;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+}
+
+.best-seller {
+  background-color: #a3b899;
+  padding: 5px 15px;
+  border-radius: 20px;
+  color: white;
+  p {
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.drinks-price {
+  font-size: 1.5rem;
+}

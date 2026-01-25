@@ -1,10 +1,20 @@
+@font-face {
+  font-family: "Header";
+  src: url("./assets/fonts/Montserrat-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "Text";
+  src: url("./assets/fonts/Quicksand-VariableFont_wght.ttf");
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Text", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: #f5f9f7;
   background-color: #242424;
 
   font-synthesis: none;
@@ -15,7 +25,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #a3b899;
   text-decoration: inherit;
 }
 a:hover {
@@ -28,11 +38,24 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #f2f3f5;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Header";
+  color: #9d71c4;
+  margin: 0;
+  font-weight: 700;
 }
 
 button {
@@ -54,6 +77,9 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+* {
+  box-sizing: border-box;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
