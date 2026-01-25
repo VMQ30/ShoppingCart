@@ -65,8 +65,6 @@ function RenderCategory({ drinks }) {
 function RenderDrinks({ drink }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log(isModalOpen);
-
   return (
     <>
       <div className="drinks-card" onClick={() => setIsModalOpen(!isModalOpen)}>
@@ -74,10 +72,8 @@ function RenderDrinks({ drink }) {
           <div className="drinks-info">
             <div>
               <h4>{drink.name}</h4>
-              {drink.bestSeller ? (
+              {drink.bestSeller && (
                 <div className="best-seller">Best Seller </div>
-              ) : (
-                ""
               )}
             </div>
             <p>{drink.description}</p>
@@ -99,32 +95,54 @@ function RenderDrinks({ drink }) {
 function Modal({ drink }) {
   const [numOfOrder, setNumOfOrder] = useState(1);
   return (
-    <div className="modal">
-      <div className="modal-photo"></div>
+    <div
+      className="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div
+        className="modal-photo"
+        role="img"
+        aria-label={`Photo of ${drink.name}`}
+      ></div>
 
       <div className="drink-details">
-        <h3>{drink.name}</h3>
+        <h3 id="modal-title">{drink.name}</h3>
         <p>{drink.description}</p>
       </div>
 
       <div className="drink-option">
-        <h4>Size: </h4>
-        <div>
-          {drink.size.map((size) => (
-            <div className="option-size">
-              <input
-                id={Object.keys(size)}
-                type="radio"
-                name="drinksSize"
-                value={Object.keys(size)}
-              />
-              <label
-                htmlFor={Object.keys(size)}
-              >{`₱${Object.keys(size)}.00`}</label>
-              <h6>Object.values(size)</h6>
-            </div>
-          ))}
-        </div>
+        <fieldset className="size-selector-field">
+          <legend>
+            <h4 id="size-label">Size: </h4>
+          </legend>
+
+          <div
+            className="options-wrapper"
+            role="radiogroup"
+            aria-labelledby="size-label"
+          >
+            {drink.size.map((size) => {
+              const drinkSize = Object.keys(size)[0];
+              const drinkPrice = Object.values(size)[0];
+              const drinkId = `${drink.id}-${drinkSize}`;
+
+              return (
+                <div className="option-size" key={drinkId}>
+                  <input
+                    id={drinkId}
+                    type="radio"
+                    name="drinksSize"
+                    value={drinkSize}
+                  />
+                  <label htmlFor={drinkId}>{drinkSize}</label>
+                  <h6>{`₱${drinkPrice}.00`}</h6>
+                </div>
+              );
+            })}
+          </div>
+        </fieldset>
       </div>
 
       <div className="drink-request">
@@ -134,9 +152,19 @@ function Modal({ drink }) {
 
       <div className="add-order">
         <div className="num-of-order-wrapper">
-          <button className="decrease">-</button>
+          <button
+            className="decrease"
+            onClick={() => setNumOfOrder((prev) => (prev > 1 ? prev - 1 : 1))}
+          >
+            -
+          </button>
           <div className="num-of-order">{numOfOrder}</div>
-          <button className="increase">+</button>
+          <button
+            className="increase"
+            onClick={() => setNumOfOrder((prev) => prev + 1)}
+          >
+            +
+          </button>
         </div>
         <button className="add-cart">Add to Cart</button>
       </div>
