@@ -9,7 +9,7 @@ export function Home() {
           <p>
             Simply Un<span>bear</span>ably Good
           </p>
-          <NavLink to="products">View Products</NavLink>
+          <NavLink to="products/Milk Tea">View Products</NavLink>
         </div>
         <h2>Bubble Tea</h2>
       </div>
@@ -17,7 +17,7 @@ export function Home() {
       <div className="popular-drinks">
         <h3>Signature Drinks</h3>
         <div className="products-grid"></div>
-        <NavLink to="products">View More</NavLink>
+        <NavLink to="products/Milk Tea">View More</NavLink>
       </div>
     </>
   );
