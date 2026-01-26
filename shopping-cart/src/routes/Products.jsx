@@ -98,21 +98,22 @@ function RenderDrinks({ drink, addons }) {
         </div>
       </div>
 
-      {isModalOpen && <Modal drink={drink} addons={addons} />}
+      {isModalOpen && (
+        <Modal drink={drink} addons={addons} setIsModalOpen={setIsModalOpen} />
+      )}
     </>
   );
 }
 
-function Modal({ drink, addons }) {
+function Modal({ drink, addons, setIsModalOpen }) {
   const [orders, setOrders] = useOutletContext();
 
   const [numOfOrder, setNumOfOrder] = useState(1);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedAddons, setSelectedAddons] = useState([]);
 
-  console.log(selectedSize);
-  console.log(selectedAddons);
   console.log(orders);
+
   return (
     <div className={styles["modal-container"]}>
       <div
@@ -226,7 +227,7 @@ function Modal({ drink, addons }) {
             <button
               className={styles["add-cart"]}
               disabled={!selectedSize}
-              onClick={() =>
+              onClick={() => {
                 AddOrder(
                   drink,
                   numOfOrder,
@@ -234,8 +235,9 @@ function Modal({ drink, addons }) {
                   selectedSize,
                   orders,
                   setOrders,
-                )
-              }
+                );
+                setIsModalOpen(false);
+              }}
             >
               Add to Cart
             </button>
@@ -269,6 +271,7 @@ function AddOrder(
       size: selectedSize,
       numOfOrder: numOfOrder,
       selectedAddons: selectedAddons,
+      id: drink.id,
     },
   ];
   setOrders(newOrder);

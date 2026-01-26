@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 export function App() {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState(() => {
+    const saved = localStorage.getItem("cart");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(orders));
+  }, [orders]);
+
   return (
     <>
       <nav>
