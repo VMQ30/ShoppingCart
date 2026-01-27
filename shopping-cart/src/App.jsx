@@ -13,7 +13,7 @@ export function App() {
   return (
     <>
       <nav>
-        <h1>Milk Tea</h1>
+        <h1>Sakura Sip</h1>
         <div className="nav-buttons">
           <ul>
             <NavLink to="/" end>
