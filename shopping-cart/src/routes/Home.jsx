@@ -26,14 +26,10 @@ export function Home() {
           <img src={pearl} className={styles["pearl3"]} />
           <img src={strawberrySlice} className={styles["strawberry-slice"]} />
           <img src={strawberry} className={styles["strawberry"]} />
-          {/* <img src={splash} className={styles["splash"]} /> */}
         </div>
 
         <div className={styles["hero-section-right"]}>
           <div className={styles["hero-section-right-wrapper"]}>
-            {/* <img src={sakuraGIF} className={styles["sakura-one"]}></img>
-            <img src={sakuraGIF} className={styles["sakura-two"]}></img> */}
-
             <p>A taste of spring in every drop</p>
             <NavLink to="products/Milk Tea">View Products</NavLink>
           </div>

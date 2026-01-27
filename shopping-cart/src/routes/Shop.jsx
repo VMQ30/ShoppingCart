@@ -19,18 +19,21 @@ export function Shop() {
 
 function RenderOrders({ order }) {
   const totalPrice = GetDrinksPrice(order);
+  const size = Object.keys(order.size)[0];
   return (
     <div className={styles["order"]}>
       <div className={styles["order-pic"]}></div>
-      <div className={styles["order-details"]}>
-        <h3>{order.name}</h3>
-        <div className={styles["order-price"]}>
-          <div className={styles["order-quantity"]}>
-            <button className={styles["decrease"]}>-</button>
-            <div className={styles["quantity"]}>{order.numOfOrder}</div>
-            <button className={styles["increase"]}>+</button>
-          </div>
-          <p>{totalPrice}</p>
+      <div className={styles["order-details-container"]}>
+        <div className={styles["order-details"]}>
+          <h3>{order.name}</h3>
+          <p>
+            {size} - ₱{totalPrice}
+          </p>
+        </div>
+        <div className={styles["order-quantity"]}>
+          <button className={styles["decrease"]}>-</button>
+          <div className={styles["quantity"]}>{order.numOfOrder}</div>
+          <button className={styles["increase"]}>+</button>
         </div>
       </div>
     </div>

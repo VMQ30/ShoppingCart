@@ -1,0 +1,14 @@
+.order {
+  display: flex;
+}
+.order-quantity {
+  display: flex;
+}
+
+.order-details-container {
+  display: flex;
+}
+
+.order-details {
+  display: flex;
+}
