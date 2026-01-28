@@ -89,6 +89,10 @@ nav {
   background-color: #faf2f1cd;
   backdrop-filter: blur(3px);
   z-index: 999;
+
+  img {
+    height: 12vh;
+  }
 }
 
 .nav-buttons {

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
+
+import logo from "./assets/logo.png";
 export function App() {
   const [orders, setOrders] = useState(() => {
     const saved = localStorage.getItem("cart");
@@ -13,7 +15,7 @@ export function App() {
   return (
     <>
       <nav>
-        <h1>Sakura Sip</h1>
+        <img src={logo} />
         <div className="nav-buttons">
           <ul>
             <NavLink to="/" end>

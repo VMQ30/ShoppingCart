@@ -48,7 +48,12 @@ function GetData() {
 
         <div className={styles["drinks-list"]}>
           {drinks.map((drink) => (
-            <RenderDrinks drink={drink} addons={addons} key={drink.id} />
+            <RenderDrinks
+              category={categoryData.category}
+              drink={drink}
+              addons={addons}
+              key={drink.id}
+            />
           ))}
         </div>
       </div>
@@ -66,7 +71,7 @@ function RenderCategory({ drinks }) {
   );
 }
 
-function RenderDrinks({ drink, addons }) {
+function RenderDrinks({ category, drink, addons }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -99,13 +104,18 @@ function RenderDrinks({ drink, addons }) {
       </div>
 
       {isModalOpen && (
-        <Modal drink={drink} addons={addons} setIsModalOpen={setIsModalOpen} />
+        <Modal
+          category={category}
+          drink={drink}
+          addons={addons}
+          setIsModalOpen={setIsModalOpen}
+        />
       )}
     </>
   );
 }
 
-function Modal({ drink, addons, setIsModalOpen }) {
+function Modal({ category, drink, addons, setIsModalOpen }) {
   const [orders, setOrders] = useOutletContext();
 
   const [numOfOrder, setNumOfOrder] = useState(1);
@@ -230,6 +240,7 @@ function Modal({ drink, addons, setIsModalOpen }) {
               onClick={() => {
                 AddOrder(
                   drink,
+                  category,
                   numOfOrder,
                   selectedAddons,
                   selectedSize,
@@ -258,20 +269,23 @@ function handleToggle(addon, setSelectedAddons) {
 
 function AddOrder(
   drink,
+  category,
   numOfOrder,
   selectedAddons,
   selectedSize,
   orders,
   setOrders,
 ) {
+  console.log(category);
   let newOrder = [
     ...orders,
     {
       name: drink.name,
+      category: category,
       size: selectedSize,
       numOfOrder: numOfOrder,
       selectedAddons: selectedAddons,
-      id: drink.id,
+      id: `${drink.id}-${Date.now()}`,
     },
   ];
   setOrders(newOrder);

@@ -1,14 +1,39 @@
+.cart-container {
+  padding: 20px 80px;
+  h2 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    background: linear-gradient(to right, black 50%, #ff788a 50%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    letter-spacing: 0.5rem;
+  }
+}
+
 .order {
   display: flex;
+}
+
+.order-pic {
+  background-color: aqua;
+  height: 100%;
+  width: 10%;
+}
+
+.order-details-container {
+  width: 20vw;
 }
 .order-quantity {
   display: flex;
 }
 
-.order-details-container {
+.order-details {
   display: flex;
+  justify-content: space-between;
 }
 
-.order-details {
+.order-addons {
   display: flex;
 }
