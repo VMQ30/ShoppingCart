@@ -31,7 +31,9 @@ export function Home() {
         <div className={styles["hero-section-right"]}>
           <div className={styles["hero-section-right-wrapper"]}>
             <p>A taste of spring in every drop</p>
-            <NavLink to="products/Milk Tea">View Products</NavLink>
+            <NavLink to="products/Milk Tea">
+              View Products <span className={styles["arrow"]}>➜</span>
+            </NavLink>
           </div>
         </div>
         <h2 className={styles["captions"]}>Bubble Tea</h2>

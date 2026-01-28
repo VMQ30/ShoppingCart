@@ -1,7 +1,6 @@
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, NavLink } from "react-router-dom";
 import styles from "./styles/Shop.module.css";
 import { useState } from "react";
-
 export function Shop() {
   const [orders, setOrders] = useOutletContext();
   console.log(orders);
@@ -10,14 +9,22 @@ export function Shop() {
     <div className={styles["cart-container"]}>
       <h2>Your Cart</h2>
       <div className={styles["cart-order-wrapper"]}>
-        {orders.map((order, index) => (
-          <RenderOrders
-            orders={orders}
-            setOrders={setOrders}
-            order={order}
-            id={`${order.id}-${index}`}
-          />
-        ))}
+        {orders.length > 0 ? (
+          orders.map((order, index) => (
+            <RenderOrders
+              orders={orders}
+              setOrders={setOrders}
+              order={order}
+              id={`${order.id}-${index}`}
+            />
+          ))
+        ) : (
+          <div className={styles["no-orders"]}>
+            <NavLink to="../products/Milk Tea">
+              Browse our menu and start adding items to your order ➜{" "}
+            </NavLink>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -39,21 +46,23 @@ function RenderOrders({ orders, setOrders, order }) {
         >
           X
         </button>
-        <button
-          className={styles["decrease"]}
-          onClick={() =>
-            setNewNumOfOrder((prev) => (prev === 1 ? 1 : prev - 1))
-          }
-        >
-          -
-        </button>
-        <div className={styles["quantity"]}>{newNumOfOrder}</div>
-        <button
-          className={styles["increase"]}
-          onClick={() => setNewNumOfOrder((prev) => prev + 1)}
-        >
-          +
-        </button>
+        <div>
+          <button
+            className={styles["decrease"]}
+            onClick={() =>
+              setNewNumOfOrder((prev) => (prev === 1 ? 1 : prev - 1))
+            }
+          >
+            -
+          </button>
+          <div className={styles["quantity"]}>{newNumOfOrder}</div>
+          <button
+            className={styles["increase"]}
+            onClick={() => setNewNumOfOrder((prev) => prev + 1)}
+          >
+            +
+          </button>
+        </div>
       </div>
 
       <div className={styles["order-details-container"]}>
@@ -68,7 +77,7 @@ function RenderOrders({ orders, setOrders, order }) {
 
         <div className={styles["order-addons"]}>
           {order.selectedAddons.map((addon) => (
-            <div className="addons">{addon.name}</div>
+            <div className={styles["addons"]}>{addon.name}</div>
           ))}
         </div>
       </div>

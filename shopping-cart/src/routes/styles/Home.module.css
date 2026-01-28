@@ -168,6 +168,24 @@
   position: relative;
 }
 
+.arrow {
+  margin-left: 10px;
+  position: absolute;
+  animation: infinite 1.8s arrow-move;
+}
+
+@keyframes arrow-move {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(30%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
 @media (max-width: 768px) {
   .hero-section {
     flex-direction: column; /* Side-by-side */

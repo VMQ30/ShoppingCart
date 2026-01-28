@@ -1,5 +1,6 @@
 .cart-container {
   padding: 20px 80px;
+  min-height: 80vh;
   h2 {
     font-size: 3rem;
     text-transform: uppercase;
@@ -12,28 +13,83 @@
   }
 }
 
-.order {
-  display: flex;
+.cart-order-wrapper {
+  margin-top: 40px;
 }
 
-.order-pic {
-  background-color: aqua;
-  height: 100%;
-  width: 10%;
+.no-orders {
+  a {
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+  }
+}
+.order {
+  display: flex;
+  gap: 40px;
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  width: 60%;
+  box-shadow: 0 5px 10px #ff788a30;
+  min-height: 20vh;
 }
 
 .order-details-container {
-  width: 20vw;
-}
-.order-quantity {
-  display: flex;
+  width: 100%;
 }
 
 .order-details {
   display: flex;
   justify-content: space-between;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  p {
+    font-weight: 600;
+  }
+}
+
+.order-quantity {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #ff788a;
+
+    div {
+      border: none;
+    }
+    button {
+      background-color: transparent;
+      font-size: 1.5rem;
+      height: calc(70px - 3px);
+    }
+  }
+}
+
+.remove {
+  background-color: #ff788a;
+  color: white;
+  width: 70px;
+  height: 70px;
+  border-radius: 0;
 }
 
 .order-addons {
   display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.addons {
+  background-color: #ff788a;
+  color: white;
+  border-radius: 20px;
+  padding: 3px 15px;
 }
