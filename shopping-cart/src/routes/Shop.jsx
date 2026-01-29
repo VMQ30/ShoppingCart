@@ -3,36 +3,55 @@ import styles from "./styles/Shop.module.css";
 import { useState } from "react";
 export function Shop() {
   const [orders, setOrders] = useOutletContext();
-  console.log(orders);
+  const grandTotal = orders.reduce((sum, order) => {
+    const size = Object.keys(order.size)[0];
+    const sizePrice = order.size[size];
+    const addonsPrice = order.selectedAddons.reduce(
+      (addonSum, addon) => addonSum + addon.price,
+      0,
+    );
+    return sum + (sizePrice + addonsPrice) * order.numOfOrder;
+  }, 0);
 
   return (
     <div className={styles["cart-container"]}>
-      <h2>Your Cart</h2>
-      <div className={styles["cart-order-wrapper"]}>
-        {orders.length > 0 ? (
-          orders.map((order, index) => (
-            <RenderOrders
-              orders={orders}
-              setOrders={setOrders}
-              order={order}
-              id={`${order.id}-${index}`}
-            />
-          ))
-        ) : (
-          <div className={styles["no-orders"]}>
-            <NavLink to="../products/Milk Tea">
-              Browse our menu and start adding items to your order ➜{" "}
-            </NavLink>
-          </div>
-        )}
+      <div className={styles["cart-container-wrapper"]}>
+        <h2>Your Cart</h2>
+        <div className={styles["cart-order-wrapper"]}>
+          {orders.length > 0 ? (
+            orders.map((order, index) => (
+              <RenderOrders
+                orders={orders}
+                setOrders={setOrders}
+                order={order}
+                id={`${order.id}-${index}`}
+              />
+            ))
+          ) : (
+            <div className={styles["no-orders"]}>
+              <NavLink to="../products/Milk Tea">
+                Browse our menu and start adding items to your order ➜{" "}
+              </NavLink>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className={styles["order-summary"]}>
+        <div className={styles["summary-header"]}>
+          <h2>Order Summary</h2>
+          <p>{orders.length} Items</p>
+        </div>
+
+        <div className={styles["summary-details"]}>
+          <h3>{`Total: ₱${grandTotal}`}</h3>
+        </div>
       </div>
     </div>
   );
 }
 
 function RenderOrders({ orders, setOrders, order }) {
-  const [newNumOfOrder, setNewNumOfOrder] = useState(order.numOfOrder);
-  const totalPrice = GetDrinksPrice(order, newNumOfOrder);
+  const totalPrice = GetDrinksPrice(order);
   const size = Object.keys(order.size)[0];
 
   return (
@@ -50,15 +69,29 @@ function RenderOrders({ orders, setOrders, order }) {
           <button
             className={styles["decrease"]}
             onClick={() =>
-              setNewNumOfOrder((prev) => (prev === 1 ? 1 : prev - 1))
+              setOrders((prevOrder) =>
+                prevOrder.map((item) =>
+                  item.id === order.id
+                    ? { ...item, numOfOrder: Math.max(item.numOfOrder - 1, 1) }
+                    : item,
+                ),
+              )
             }
           >
             -
           </button>
-          <div className={styles["quantity"]}>{newNumOfOrder}</div>
+          <div className={styles["quantity"]}>{order.numOfOrder}</div>
           <button
             className={styles["increase"]}
-            onClick={() => setNewNumOfOrder((prev) => prev + 1)}
+            onClick={() =>
+              setOrders((prevOrder) =>
+                prevOrder.map((item) =>
+                  item.id === order.id
+                    ? { ...item, numOfOrder: item.numOfOrder + 1 }
+                    : item,
+                ),
+              )
+            }
           >
             +
           </button>
@@ -85,8 +118,7 @@ function RenderOrders({ orders, setOrders, order }) {
   );
 }
 
-function GetTotalPrice() {}
-function GetDrinksPrice(order, numOfOrder) {
+function GetDrinksPrice(order) {
   let total = 0;
   const size = Object.keys(order.size)[0];
 
@@ -95,6 +127,5 @@ function GetDrinksPrice(order, numOfOrder) {
   for (const addon of order.selectedAddons) {
     total += addon.price;
   }
-
-  return total * numOfOrder;
+  return total * order.numOfOrder;
 }
